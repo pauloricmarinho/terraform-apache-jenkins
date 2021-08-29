@@ -15,7 +15,29 @@ provider "aws" {
 }
 
 #Maquina Virtual EC2
-resource "aws_instance" "servidor-apache" {
+resource "aws_instance" "srv-jenkins" {
+
+    # Número de Máquinas Criadas
+    count = 1
+    ami           = var.ami["linux"]
+    instance_type = var.ami["micro"]
+
+    tags = {
+        Name = "srv-jenkins-${count.index}" # Pegar Index da Máquina Criada
+    }
+
+    ## Associar Chave de Acesso
+    key_name = "key-terraform-aws"
+
+    ## Associar Security Group Acesso SSH
+    vpc_security_group_ids = [aws_security_group.acesso-ssh.id, aws_security_group.acesso-http.id]
+
+    user_data = file("scripts/install-jenkins.sh")
+      
+}
+
+## Servidor Tomcat
+resource "aws_instance" "srv-tomcat" {
 
     # Número de Máquinas Criadas
     count = 2
@@ -23,20 +45,17 @@ resource "aws_instance" "servidor-apache" {
     instance_type = var.ami["micro"]
 
     tags = {
-        Name = "servidor-web-${count.index}" # Pegar Index da Máquina Criada
+        Name = "srv-tomcat-${count.index}" # Pegar Index da Máquina Criada
     }
 
     ## Associar Chave de Acesso
-    key_name = "terraform-aws-kg"
+    key_name = "key-terraform-aws"
 
     ## Associar Security Group Acesso SSH
     vpc_security_group_ids = [aws_security_group.acesso-ssh.id, aws_security_group.acesso-http.id]
 
-    user_data = file("scripts/install-apache.sh")
-
-    
-    
-  
+    user_data = file("scripts/install-tomcat.sh")
+      
 }
 
 ## Configurando o Security Group
@@ -72,6 +91,17 @@ resource "aws_security_group" "acesso-http" {
       description      = "acesso-http"
       from_port        = 80
       to_port          = 80
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks =  null
+      prefix_list_ids   = null
+      security_groups   = null
+      self              = null
+    },
+     {
+      description      = "acesso-http"
+      from_port        = 8080
+      to_port          = 8080
       protocol         = "tcp"
       cidr_blocks      = ["0.0.0.0/0"]
       ipv6_cidr_blocks =  null

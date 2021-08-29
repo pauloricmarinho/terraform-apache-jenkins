@@ -1,20 +1,25 @@
 # Exibir Informações na Saida do Console
-output "servidor-public-address-0" {
-    value = aws_instance.servidor-apache[0].public_dns  
+output "JENKINS-public-address-0" {
+    value = aws_instance.srv-jenkins[0].public_dns  
 }
 
-output "servidor-public-ip-0" {
-    value = aws_instance.servidor-apache[0].public_ip
+output "JENKINS-public-ip-0" {
+    value = aws_instance.srv-jenkins[0].public_ip
 }
 
-output "servidor-public-address-1" {
-    value = aws_instance.servidor-apache[1].public_dns  
+output "TOMCAT-public-address-1" {
+    value = aws_instance.srv-tomcat[0].public_dns  
 }
 
-output "servidor-public-ip-1" {
-    value = aws_instance.servidor-apache[1].public_ip
+output "TOMCAT-public-ip-1" {
+    value = aws_instance.srv-tomcat[0].public_ip
 }
 
-output "associate_public_ip_address" {
-    value = aws_instance.servidor-apache[0].associate_public_ip_address
+
+output "TOMCAT-public-address-2" {
+    value = aws_instance.srv-tomcat[1].public_dns  
+}
+
+output "TOMCAT-public-ip-2" {
+    value = aws_instance.srv-tomcat[1].public_ip
 }
