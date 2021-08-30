@@ -62,6 +62,7 @@ resource "aws_instance" "srv-tomcat" {
 resource "aws_security_group" "acesso-ssh" {
   name        = "acesso-ssh"
   description = "acesso-ssh"
+  
 
   ingress = [
     {
@@ -86,6 +87,7 @@ resource "aws_security_group" "acesso-http" {
   name        = "acesso-http"
   description = "acesso-http"
 
+   
   ingress  = [
     {
       description      = "acesso-http"
@@ -152,3 +154,26 @@ resource "aws_db_instance" "servidor-banco" {
   }
   
 }*/
+
+
+resource "aws_elb" "load-balance-elb" {
+  name               = "projeto-elb"
+  availability_zones = ["us-east-1b","us-east-1c","us-east-1a"]
+  listener {
+    instance_port     = 8080
+    instance_protocol = "http"
+    lb_port           = 80
+    lb_protocol       = "http"
+    
+  }
+  
+  instances                   = [aws_instance.srv-tomcat[0].id, aws_instance.srv-tomcat[1].id]
+  cross_zone_load_balancing   = true
+  idle_timeout                = 400
+  connection_draining         = true
+  connection_draining_timeout = 400
+
+  tags = {
+    Name = "projeto-elb"
+  }
+}
