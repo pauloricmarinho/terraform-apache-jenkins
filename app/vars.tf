@@ -1,7 +1,7 @@
 variable  "ami" {
     type = map
     default = {
-        "linux" = "ami-09e67e426f25ce0d7"
+        "linux" = "ami-0747bdcabd34c712a"
         "micro" = "t2.micro"
     }
 }

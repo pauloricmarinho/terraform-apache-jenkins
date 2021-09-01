@@ -133,8 +133,44 @@ resource "aws_security_group" "acesso-http" {
 
 }
 
+resource "aws_security_group" "acesso-mysql" {
+  name        = "acesso-mysql"
+  description = "acesso-mysql"
+  
+  ingress  = [
+    {
+      description      = "acesso-mysql"
+      from_port        = 3306
+      to_port          = 3306
+      protocol         = "tcp"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks =  null
+      prefix_list_ids   = null
+      security_groups   = null
+      self              = null
+    }]
+
+   egress  = [
+    {
+      description      = "acesso-mysql-saida"
+      from_port        = 0
+      to_port          = 0
+      protocol         = "ALL"
+      cidr_blocks      = ["0.0.0.0/0"]
+      ipv6_cidr_blocks =  null
+      prefix_list_ids   = null
+      security_groups   = null
+      self              = null
+    }
+  ]
+  
+  tags = {
+    Name = "acesso-mysql"
+  }
+
+}
+
 #Configurar Instância do RS com MySQL
-/*
 resource "aws_db_instance" "servidor-banco" {
   
   allocated_storage    = 10
@@ -147,13 +183,13 @@ resource "aws_db_instance" "servidor-banco" {
   parameter_group_name = "default.mysql5.7"
   skip_final_snapshot  = true
   publicly_accessible  = true
-  
+
+  vpc_security_group_ids = [aws_security_group.acesso-mysql.id]
 
     tags = {
-    Name = "servidor-mysql"
-  }
-  
-}*/
+      Name = "servidor-mysql"
+    }
+}
 
 
 resource "aws_elb" "load-balance-elb" {
@@ -166,7 +202,7 @@ resource "aws_elb" "load-balance-elb" {
     lb_protocol       = "http"
     
   }
-  
+
   instances                   = [aws_instance.srv-tomcat[0].id, aws_instance.srv-tomcat[1].id]
   cross_zone_load_balancing   = true
   idle_timeout                = 400
