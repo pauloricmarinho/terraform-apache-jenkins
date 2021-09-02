@@ -39,3 +39,9 @@ Repositório Instâcnia Apache Tomcat, Servidor Jenkins  e Load Balance
 |terraform show    |`Mostrar Instâncias Criadas dentro do Console do AWS`	|
 |terraform apply   |`Aplicar o HCL do Terraform para Criação das Instâncias`|
 |terraform destroy |`Destroi todas Instâncias Criadas via HCL no AWS`		|
+
+**Desenvolvido por:**
+
+- *Gabriel Rossi Lopes*
+- *Lenon Izidorio dos Santos Fernandes*
+- *Paulo Ricardo Marinho Pontes *
