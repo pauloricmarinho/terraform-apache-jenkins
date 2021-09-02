@@ -1,23 +1,23 @@
 # Projeto Terraform AWS
 Repositório Instâcnia Apache Tomcat, Servidor Jenkins  e Load Balance
 
-** Baixar a Versão do Terraform e Configurar as Variáveis de Ambiente **
+**Baixar a Versão do Terraform e Configurar as Variáveis de Ambiente**
 
 	https://releases.hashicorp.com/terraform/1.0.1/
 
-** Terraform Providers AWS **
+**Terraform Providers AWS**
 
 	https://registry.terraform.io/providers/hashicorp/aws/latest
 
-** Gerar Chave Criptogratica e Importar para o Console do AWS - AMI **
+**Gerar Chave Criptogratica e Importar para o Console do AWS - AMI**
 
 `ssh-keygen.exe -f terraform-aws-kg -t rsa`
 
-** Baixar AWS Client **
+**Baixar AWS Client**
 
 `msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi`
 
-** Configurar a Conexão com via AWS Client **
+**Configurar a Conexão com via AWS Client**
 
 `aws configure`
 
@@ -29,7 +29,7 @@ Repositório Instâcnia Apache Tomcat, Servidor Jenkins  e Load Balance
 
 >Default output format [None]:  json
 
-** Comandos Básicos do Terraform **
+**Comandos Básicos do Terraform**
 
 |                  |Descrição                      							|
 |------------------|--------------------------------------------------------|
@@ -44,4 +44,4 @@ Repositório Instâcnia Apache Tomcat, Servidor Jenkins  e Load Balance
 
 - *Gabriel Rossi Lopes*
 - *Lenon Izidorio dos Santos Fernandes*
-- *Paulo Ricardo Marinho Pontes *
+- *Paulo Ricardo Marinho Pontes*
